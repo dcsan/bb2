@@ -4,6 +4,7 @@ import bsky from '@atproto/api';
 // import { doPost } from './tasks/post.js';
 import { getTimeline } from './tasks/getTimeline.js';
 import { getProfile } from './tasks/getProfile.js';
+import { getRecent } from './tasks/getRecent.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ async function main() {
   // doPost({ agent, config }).then(res => {
   getTimeline({ agent }).then(res => {
     // getProfile({ agent }).then(res => {
+    // getRecent({ agent }).then(res => {
     console.log('done', res)
   }).catch(err => {
     console.log('err', err)

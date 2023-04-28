@@ -27,3 +27,18 @@ export const getUserCreatedAt = async (actor: string) => {
 
   return createdAt;
 };
+
+export const formatPost = (e: any, actor: string) => {
+  return ({
+    text: (e.post.record as any).text,
+    uri: e.post.uri.replace('app.bsky.feed.', '').replace('at://', 'https://staging.bsky.app/profile/'),
+    likeCount: e.post.likeCount,
+    did: e.post.author.did,
+    handle: e.post.author.handle,
+    isOwn: e.post.author.did === actor,
+    repostCount: e.post.repostCount,
+    isRepost: e.post.repostCount === 0 ? false : true,
+    createdAt: (e.post.record as any).createdAt,
+  })
+
+}

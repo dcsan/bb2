@@ -1,4 +1,5 @@
 import bsky from '@atproto/api';
+import { formatPost } from '../utils/atHelpers.js';
 
 
 type GetTimelineParams = {
@@ -9,33 +10,36 @@ type GetTimelineParams = {
 }
 
 export async function getRecent(funcParams: GetTimelineParams) {
-  const { agent, opts } = funcParams;
-  let { params, actor } = funcParams;
+  const { params, agent, opts } = funcParams;
+  let { actor } = funcParams;
   actor = agent.session!.did!;
 
-  const items = await agent.getAuthorFeed({
+  // params = {
+  //   ...params,
+  //   limit: 100,
+  //   algorithm: 'reverse-chronological'
+  // }
+
+  // not sure of diff timeline vs authorFeed
+  // const timeline = await agent.getTimeline(
+  //   params,
+  //   opts
+  // )
+  // console.log('timeline?.data?.feed', timeline?.data?.feed?.length)
+
+
+  const response = await agent.getAuthorFeed({
     actor: actor!,
-    cursor,
+    // cursor,
     limit: 5,
   });
 
   const posts: object[] = [];
+  console.log('response', response)
 
-  items.forEach((res) => {
-    if (typeof res.feed[0] !== 'undefined') {
-      posts.push(
-        ...res.feed.map((e) => ({
-          text: (e.post.record as any).text,
-          uri: e.post.uri.replace('app.bsky.feed.', '').replace('at://', 'https://staging.bsky.app/profile/'),
-          likeCount: e.post.likeCount,
-          did: e.post.author.did,
-          handle: e.post.author.handle,
-          isOwn: e.post.author.did === actor,
-          repostCount: e.post.repostCount,
-          isRepost: e.post.repostCount === 0 ? false : true,
-          createdAt: (e.post.record as any).createdAt,
-        })),
-      );
+  response.data.feed.forEach((e) => {
+    if (typeof e !== 'undefined') {
+      posts.push(formatPost(e, actor!))
     }
   });
 

@@ -7,12 +7,13 @@ type GetTimelineParams = {
   params?: any
   opts?: any
   actor?: string
+  did?: string,
 }
 
 export async function getTimeline(funcParams: GetTimelineParams) {
-  const { params, agent, opts } = funcParams;
-  const actor = agent.session!.did!;
-  // console.log('timeline', timeline)
+  const { params, agent, opts, did } = funcParams;
+  const actor = did || agent.session!.did!;
+  console.log('getTimeline did:', did)
 
   const paginator = async (cursor?: string) => {
     const res = await agent.getAuthorFeed({

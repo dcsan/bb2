@@ -2,7 +2,10 @@ import bsky from '@atproto/api';
 
 type PostParams = {
   agent: bsky.BskyAgent,
-  config: any
+  params?: any
+  opts?: any
+  config?: any
+  did?: string
 }
 
 const config = {
@@ -13,7 +16,8 @@ const config = {
 export async function doPost(opts: PostParams) {
   const { agent } = opts;
 
-  const bleet = '[test] Hello API v3';
+  const bleet = '[test] Hello API v3 @dcsan.xyz';
+
   const response = await agent.post({
     text: bleet,
     facets: [

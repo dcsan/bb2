@@ -18,4 +18,4 @@ build: cls
   npm run build
 
 run: cls build
-  ts-node src/index
+  npm run start

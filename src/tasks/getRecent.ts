@@ -7,12 +7,14 @@ type GetTimelineParams = {
   params?: any
   opts?: any
   actor?: string
+  did?: string,
+  count?: number
 }
 
 export async function getRecent(funcParams: GetTimelineParams) {
   const { params, agent, opts } = funcParams;
-  let { actor } = funcParams;
-  actor = agent.session!.did!;
+  const { actor } = funcParams;
+  const did = funcParams.did || agent.session!.did!;
 
   // params = {
   //   ...params,
@@ -29,9 +31,9 @@ export async function getRecent(funcParams: GetTimelineParams) {
 
 
   const response = await agent.getAuthorFeed({
-    actor: actor!,
+    actor: did!,
     // cursor,
-    limit: 5,
+    limit: funcParams.count || 10,
   });
 
   const posts: object[] = [];

@@ -1,0 +1,5 @@
+[H[2J[3J
+> bluesky-starter-kit@1.0.0 build
+> tsc
+
+src/data/users.ts(42,10): error TS2304: Cannot find name 'repos'.

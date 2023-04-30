@@ -1,40 +1,27 @@
-import * as dotenv from 'dotenv';
-import process from 'node:process';
-import bsky from '@atproto/api';
-// import { doPost } from './tasks/post.js';
+import { doLogin } from './tasks/doLogin.js';
+
+import { doPost } from './tasks/doPost.js';
 // import { getTimeline } from './tasks/getTimeline.js';
 // import { getProfile } from './tasks/getProfile.js';
-// import { getRecent } from './tasks/getRecent.js';
+import { getRecent } from './tasks/getRecent.js';
 import { getRepos } from './tasks/getRepos.js';
+import { getByHandle, User } from './data/users.js';
+import { getTimeline } from './tasks/getTimeline.js';
 
-dotenv.config();
-
-const { BskyAgent } = bsky;
-
-async function doLogin() {
-  const agent: bsky.BskyAgent = new BskyAgent({
-    service: 'https://bsky.social',
-  });
-
-  const loginConfig = {
-    identifier: process.env.BSKY_USERNAME!,
-    password: process.env.BSKY_PASSWORD!,
-  }
-  // console.log('loginConfig', loginConfig)
-
-  await agent.login(loginConfig);
-  return agent
-}
 
 async function main() {
   const agent = await doLogin()
 
   const params = {}
   const opts = {}
-  const func = getRepos // getProfile // getTimeline // getRecent
+  // const func = getRepos // getProfile // getTimeline // getRecent
+  // const func = getTimeline
+  // const func = getRecent
+  const func = doPost
+  const user: User = getByHandle('pfrazee.com')
+  const did = user.repo.did
 
-  func({ agent, params, opts }).then(res => {
-
+  func({ agent, params, opts, did }).then(res => {
     // console.log('done', res)
   }).catch(err => {
     console.log('err', err)

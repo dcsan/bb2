@@ -1,9 +1,11 @@
 import bsky from '@atproto/api';
+import { getRecent } from './getRecent.js';
 
 type GetFirehoseParams = {
   agent: bsky.BskyAgent,
   params?: any
   opts?: any
+  did?: string,
 }
 
 // com.atproto.sync.subscribeRepos
@@ -29,14 +31,18 @@ export async function getRepos(funcParams: GetFirehoseParams) {
   for (const repo of items) {
     // console.log(`[${idx}]`, repo)
     const result = await agent.com.atproto.repo.describeRepo({ repo: repo.did })
+    const recent = await getRecent({ agent, did: repo.did, count: 2 })
+
     const info = ({
       index: idx++,
       handle: result.data.handle,
       // data: result.data,
       repo,
+      recent,
     })
     console.log('info:', JSON.stringify(info, null, 2))
     repoList.push(info)
+
   }
 
   console.log('repoList', repoList)

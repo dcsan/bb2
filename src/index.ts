@@ -2,9 +2,9 @@ import * as dotenv from 'dotenv';
 import process from 'node:process';
 import bsky from '@atproto/api';
 // import { doPost } from './tasks/post.js';
-import { getTimeline } from './tasks/getTimeline.js';
-import { getProfile } from './tasks/getProfile.js';
-import { getRecent } from './tasks/getRecent.js';
+// import { getTimeline } from './tasks/getTimeline.js';
+// import { getProfile } from './tasks/getProfile.js';
+// import { getRecent } from './tasks/getRecent.js';
 import { getRepos } from './tasks/getRepos.js';
 
 dotenv.config();
@@ -35,7 +35,7 @@ async function main() {
 
   func({ agent, params, opts }).then(res => {
 
-    console.log('done', res)
+    // console.log('done', res)
   }).catch(err => {
     console.log('err', err)
   })

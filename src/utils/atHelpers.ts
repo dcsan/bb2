@@ -42,3 +42,7 @@ export const formatPost = (e: any, actor: string) => {
   })
 
 }
+
+export const makeUriFromHandle = (handle: string) => {
+  return `https://staging.bsky.app/profile/${handle}`
+}

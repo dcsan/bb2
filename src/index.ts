@@ -14,10 +14,10 @@ async function main() {
 
   const params = {}
   const opts = {}
-  // const func = getRepos // getProfile // getTimeline // getRecent
+  const func = getRepos
   // const func = getTimeline
   // const func = getRecent
-  const func = doPost
+  // const func = doPost
   const user: User = getByHandle('pfrazee.com')
   const did = user.repo.did
 

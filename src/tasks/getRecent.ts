@@ -37,7 +37,7 @@ export async function getRecent(funcParams: GetTimelineParams) {
   });
 
   const posts: object[] = [];
-  console.log('response', response)
+  // console.log('response', response)
 
   response.data.feed.forEach((e) => {
     if (typeof e !== 'undefined') {

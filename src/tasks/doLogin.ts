@@ -13,8 +13,8 @@ const agent: bsky.BskyAgent = new BskyAgent({
 async function doLogin() {
 
   const loginConfig = {
-    identifier: process.env.BSKY_USERNAME!,
-    password: process.env.BSKY_PASSWORD!,
+    identifier: process.env.BOT_HANDLE!,
+    password: process.env.BOT_PASSWORD!,
   }
   // console.log('loginConfig', loginConfig)
 

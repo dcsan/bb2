@@ -58,31 +58,10 @@ export const makeEmbed = async (params: MakeEmbedParams) => {
   if (response.success) {
     console.log("Uploaded the blob", response)
   } else {
-    console.log("error uploading", response);
+    console.error("error uploading", response);
   }
-  // } catch (err: any) {
-  //   console.error('ignoring uploadBlob error', err)
-  //   response = err.responseBody
-  //   console.log('response', response)
-  // }
-
-
-  //   .then((res) => {
-  //   clog.log('uploadBlob response', res)
-  // }).catch((err) => {
-  //   clog.log('uploadBlob error', err)
-  // })
 
   console.log('continue ')
-  // console.log('response => ', response)
-  // clog.log('uploadBlob response', JSON.stringify(response, null, 2))
-  // return
-  // if (!response.success) {
-  //   const msg = `Unable to upload image ${imageUrl}`;
-  //   console.error(msg, response);
-  //   throw new Error(msg);
-  // }
-
   const { data: { blob: image } } = response;
 
   const embed: any = {
